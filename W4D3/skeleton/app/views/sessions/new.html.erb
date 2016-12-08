@@ -1,0 +1,18 @@
+<h1>Login</h1>
+
+<form action="/session" method="post">
+  <%= auth_token %>
+  <label for="user_name">Username</label>
+  <input type="text" name="session[user_name]"><br><br>
+  <label for="password">Password</label>
+  <input type="text" name="session[password]"><br><br>
+  <input type="submit" value="Login"><br><br>
+
+  <h3>New to our site?</h3>
+  <%= link_to 'Signup', '/users/new' %>
+
+</form>
+
+<% content_for :footer do %>
+  <p>This is the login page.</p>
+<% end %>
