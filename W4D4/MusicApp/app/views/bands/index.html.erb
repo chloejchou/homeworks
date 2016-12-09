@@ -1,0 +1,16 @@
+<!--
+List the bands - Each will link to the show page
+Under the links, have a destroy & edit button
+At the bottom of the page, give the option to create a band
+There is access to @bands
+-->
+<h1>Bands</h1>
+<ul>
+  <% @bands.each do |band| %>
+    <li><%= link_to "#{band.name}", band_url(band.id) %></li>
+    <%= button_to 'Delete', band_url(band.id), method: :delete %>
+    <%= button_to 'Edit', edit_band_url(band.id), method: :get %>
+  <% end %>
+</ul>
+
+<%= link_to 'Create a Band', new_band_url %>

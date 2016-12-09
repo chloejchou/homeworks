@@ -1,0 +1,17 @@
+Band.create!(name: 'OneRepublic')
+Band.create!(name: 'The Backstreet Boys')
+Band.create!(name: 'The Beatles')
+
+Album.create!(band_id: 1, name: 'Native', state: 'studio')
+Album.create!(band_id: 1, name: 'Waking Up', state: 'studio')
+Album.create!(band_id: 2, name: "Backstreet's Back", state: 'studio')
+Album.create!(band_id: 2, name: 'Millennium', state: 'studio')
+Album.create!(band_id: 3, name: 'Meet the Beatles!', state: 'studio')
+Album.create!(band_id: 3, name: 'Abbey Road', state: 'studio')
+
+Track.create!(album_id: 1, name: 'Counting Stars', state: 'regular')
+Track.create!(album_id: 2, name: 'Good Life', state: 'regular')
+Track.create!(album_id: 3, name: 'As Long As You Love Me', state: 'regular')
+Track.create!(album_id: 4, name: 'I Want It That Way', state: 'regular')
+Track.create!(album_id: 5, name: 'I Want To Hold Your Hand', state: 'regular')
+Track.create!(album_id: 6, name: "Here Comes the Sun", state: 'regular')

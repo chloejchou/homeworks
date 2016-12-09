@@ -1,0 +1,14 @@
+<!--
+access to track
+ -->
+
+<form action="<%=notes_url%>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="blurb">Enter your notes here:</label><br>
+  <textarea id="blurb" name="notes[blurb]" rows="8" cols="40"></textarea>
+  <input type="hidden" name="notes[track_id]" value="<%= track.id %>">
+  <br>
+  <input type="submit" value="Submit">
+  <br>
+</form>

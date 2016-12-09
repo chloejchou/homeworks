@@ -1,0 +1,13 @@
+<!-- access to track -->
+
+<% notes = track.notes %>
+
+<ul>
+  <% notes.each do |note| %>
+    <li> <%= note.blurb %> </li>
+    <%= "By: #{note.user.email}" %>
+    <% if note.user == current_user %>
+      <%= button_to 'Delete', note_url(note.id), method: :delete %>
+    <% end %>
+  <% end %>
+</ul>
