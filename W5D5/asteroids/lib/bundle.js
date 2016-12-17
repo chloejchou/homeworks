@@ -62,10 +62,16 @@
 
 	const Asteroid = __webpack_require__(2);
 
+	const DIM = {
+	  X: 1000,
+	  Y: 600,
+	  NUM_ASTEROIDS: 20
+	};
+
 	function Game() {
-	  this.DIM_X = 1000;
-	  this.DIM_Y = 600;
-	  this.NUM_ASTEROIDS = 20;
+	  this.DIM_X = DIM.X;
+	  this.DIM_Y = DIM.Y;
+	  this.NUM_ASTEROIDS = DIM.NUM_ASTEROIDS;
 	  this.asteroids = [];
 
 	  this.addAsteroids();
@@ -82,7 +88,6 @@
 	    let ast = new Asteroid({pos: this.randomPosition()});
 	    this.asteroids.push(ast);
 	  }
-	  // console.log(`addAsteroids: ${this.asteroids}`);
 	};
 
 	Game.prototype.draw = function(ctx) {
@@ -148,6 +153,16 @@
 
 	  scale (vec, m) {
 	    return [vec[0] * m, vec[1] * m];
+	  },
+
+	  wrap (coord, max) {
+	    if (coord < 0) {
+	      return max - (coord % max);
+	    } else if (coord > max) {
+	      return coord % max;
+	    } else {
+	      return coord;
+	    }
 	  }
 	};
 
@@ -156,7 +171,9 @@
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	const Util = __webpack_require__(3);
 
 	function MovingObject(args) {
 	  this.pos = args['pos'];
@@ -175,8 +192,13 @@
 
 	// increment the pos by the vel
 	MovingObject.prototype.move = function() {
-	  this.pos[0] = this.pos[0] + this.vel[0];
-	  this.pos[1] = this.pos[1] + this.vel[1];
+	  let newX = this.pos[0] + this.vel[0];
+	  let newY = this.pos[1] + this.vel[1];
+	  this.pos[0] = Util.wrap(newX, 1000);
+	  this.pos[1] = Util.wrap(newY, 600);
+
+	  // this.pos[0] = this.pos[0] + this.vel[0];
+	  // this.pos[1] = this.pos[1] + this.vel[1];
 	};
 
 	module.exports = MovingObject;
