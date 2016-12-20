@@ -42,7 +42,7 @@ View.prototype.exercise3 = function () {
   const $message = $("<h1></h1>");
   $message.text("i love jquery");
   // $el is undefined??
-  (this.$el).append($message);
+  $('div').append($message);
 };
 
 View.prototype.exercise4 = function () {
