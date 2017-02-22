@@ -330,7 +330,7 @@ end
 # You could reverse the string and compare it to the original, but that is slow.
 # Instead, you should be able to solve the problem with O(1) memory.
 def longest_palindrome(string)
-  
+  # ?????
 end
 
 # Given two arrays, find the intersection of both sets.
@@ -338,8 +338,23 @@ end
 # Use sorting to solve in O(nlog(n)).
 # Next, improve this to O(n) time (maybe use a non-array datastructure).
 def fast_intersection(array_one, array_two)
+  intersection = []
+  hash = Hash.new(0)
+  array_one.each do |el|
+    hash[el] += 1
+  end
+  array_two.each do |el|
+    hash[el] += 1
+  end
 
+  hash.each do |k, v|
+    intersection << k if v == 2
+  end
+
+  intersection
 end
+
+# p fast_intersection([1,2,3,5], [3,4,5])
 
 # Write a function that takes two arrays of integers
 # Returns an array with all the subsets commmon to both arrays.
@@ -352,8 +367,14 @@ end
 # You are given an array and index.
 # Find if it's possible to reach 0 by starting at the index.
 # You can only move left or right by the distance found at array[index].
-def can_win?(array, index)
+def can_win?(array, index, seen = {})
+  return false if !index.between?(0, array.length - 1) || seen[index]
+  return true if array[index] == 0
 
+  seen[index] = true
+  step_size = array[index]
+
+  can_win?(array, index + step_size, seen) || can_win?(array, index - step_size, seen)
 end
 
 # Assume an array of length n, containing the numbers 1..n in jumbled order.
@@ -411,8 +432,41 @@ end
 # Implement a stack with a max method that returns the maximum value.
 # It should run in O(1) time.
 class MaxStack
+  attr_accessor :stack
 
+  def initialize
+    @stack = []
+    @max_stack = []
+  end
+
+  def remove
+    @max_stack.pop
+    @stack.pop
+  end
+
+  def add(item)
+    current_max = @max_stack[-1] || -1.0 / 0.0
+    @stack << item
+    if item > current_max
+      @max_stack << item
+    else
+      @max_stack << current_max
+    end
+
+    @stack
+  end
+
+  def max
+    @max_stack[-1]
+  end
 end
+
+# stack = MaxStack.new
+# stack.add(1)
+# stack.add(10)
+# stack.add(11)
+# stack.remove
+# p stack.max
 
 # Implement a queue using stacks.
 # That is, write enqueue and dequeue using only push and pop operations.
@@ -421,8 +475,45 @@ end
 # In terms of ammortized time, dequeue should be O(1).
 # Prove that your solution accomplishes this.
 class StackQueue
+  def initialize
+    @in_stack = []
+    @out_stack = []
+  end
 
+  def enqueue(item)
+    @in_stack.push(item)
+  end
+
+  def dequeue
+    if @out_stack.empty?
+      until @in_stack.empty?
+        last_el = @in_stack.pop
+        @out_stack << last_el
+      end
+    end
+
+    @out_stack.pop
+  end
+
+  def show
+    stack = []
+    @out_stack.each do |el|
+      stack << el
+    end
+
+    stack + @in_stack
+  end
 end
+
+# stack_queue = StackQueue.new
+# stack_queue.enqueue(1)
+# stack_queue.enqueue(2)
+# stack_queue.enqueue(3)
+# stack_queue.dequeue
+# stack_queue.dequeue
+# stack_queue.enqueue(4)
+# stack_queue.enqueue(5)
+# p stack_queue.show
 
 # Take an array, and a window size w.
 # Find the maximum max - min within a range of w elements.
@@ -475,15 +566,38 @@ end
 
 # Write a recursive function that takes a number and returns its factorial.
 def recursive_factorial(number)
-
+  return 1 if number < 1
+  number * recursive_factorial(number - 1)
 end
+
+# p recursive_factorial(4)
 
 # Write an iterative function that takes a number and returns its factorial.
 def iterative_factorial(number)
-
+  return 1 if number < 1
+  answer = 1
+  until number == 1
+    answer *= number
+    number -= 1
+  end
+  answer
 end
+
+# p iterative_factorial(4)
 
 # Write a method that takes an array and returns all its permutations.
 def permutations(array)
+  return [[]] if array.empty?
+  answer = []
+  array.length.times do |i|
+    el = array[i]
+    rest = array[0...i] + array[(i + 1)..-1]
 
+    perms = permutations(rest).map { |perm| perm.unshift(el) }
+    answer += perms
+  end
+
+  answer
 end
+
+# p permutations([1,2,3])
