@@ -342,6 +342,8 @@ end
 # p productify([1,4,5,6])
 
 # Write a function that takes an array and returns all of its subsets.
+
+# 0(2^n)
 def subsets(array)
   return [[]] if array.length == 0
   smaller_subset = subsets(array[1..-1])
@@ -762,6 +764,8 @@ end
 # p recursive_factorial(4)
 
 # Write an iterative function that takes a number and returns its factorial.
+
+# 0(n)
 def iterative_factorial(number)
   return 1 if number < 1
   answer = 1
@@ -775,6 +779,8 @@ end
 # p iterative_factorial(4)
 
 # Write a method that takes an array and returns all its permutations.
+
+# 0(n!)
 def permutations(array)
   return [[]] if array.empty?
   answer = []
