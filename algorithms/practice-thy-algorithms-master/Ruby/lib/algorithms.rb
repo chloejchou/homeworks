@@ -133,7 +133,6 @@ end
 
 # p valid_ip?("0.0.0.0")
 # p valid_ip?("1000.0.0.0")
-# p valid_ip?("255.0.0")
 
 # Implement the Folding Cipher.
 # It folds the alphabet in half and uses the adjacent letter.
@@ -743,6 +742,7 @@ end
 
 # Write a function that takes an integer and returns it in binary form.
 # 156 -> 10011100
+
 def binary(num)
   result = []
   until num == 0
