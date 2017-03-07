@@ -163,15 +163,11 @@ end
 # 0(n^3)
 def uniq_subs(string)
   subs = []
-  start_idx = 0
-  last_idx = 0
-  while start_idx < string.length
-    while last_idx < string.length
-      subs << string[start_idx..last_idx] unless subs.include?(string[start_idx..last_idx])
-      last_idx += 1
+
+  string.length.times do |i|
+    (i...string.length).each do |j|
+      subs << string[i..j] unless subs.include?(string[i..j])
     end
-    start_idx += 1
-    last_idx = start_idx
   end
 
   subs
@@ -190,8 +186,9 @@ def lcs(array)
 
   array.each do |el|
     current_sum += el
-    current_sum = 0 if current_sum < 0
     largest_sum = current_sum if largest_sum < current_sum
+
+    current_sum = 0 if current_sum < 0
   end
 
   largest_sum
